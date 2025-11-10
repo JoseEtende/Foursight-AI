@@ -8,15 +8,17 @@ WORKDIR /app
 ENV PIP_DEFAULT_TIMEOUT=120 PIP_DISABLE_PIP_VERSION_CHECK=1 PIP_ROOT_USER_ACTION=ignore
 
 # Copy the requirements file and install dependencies
-COPY services/orchestrator/requirements.txt services/orchestrator/constraints.txt ./
+COPY services/orchestrator_agent/requirements.txt services/orchestrator_agent/constraints.txt ./
 # Install system-level dependencies for numpy/scikit-learn if needed
 RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/* && \
     python -m pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt -c constraints.txt
 
 # Copy the agent application code
-COPY services/orchestrator/app/ app/
+COPY services/orchestrator_agent/app/ app/
 
-# Set the command to run the ADK web server
-# The ADK web server will automatically find the 'app' directory
-CMD ["python", "-m", "google.adk.runners.adk_runner", "--agent_module", "orchestrator_agent", "--agent_class", "OrchestratorAgent"]
+# Copy the main entrypoint script
+COPY services/orchestrator_agent/main.py .
+
+# Set the command to run the custom server entrypoint
+CMD ["python", "main.py"]

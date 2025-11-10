@@ -8,13 +8,12 @@ from .firebase_config import db
 # --- Initialization & Setup ---
 
 # Configure Generative AI client
+# When running on Google Cloud, the library automatically authenticates using the
+# service account's credentials. No explicit configuration is needed.
 try:
-    if 'GEMINI_API_KEY' in os.environ and 'GOOGLE_API_KEY' not in os.environ:
-        os.environ['GOOGLE_API_KEY'] = os.environ['GEMINI_API_KEY']
-    genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
     llm = genai.GenerativeModel('gemini-2.5-pro')
-except KeyError:
-    print("Warning: GOOGLE_API_KEY or GEMINI_API_KEY not set. LLM-based ranking will not work.")
+except Exception as e:
+    print(f"Warning: Failed to initialize GenerativeModel. LLM-based ranking may not work. Error: {e}")
     llm = None
 
 # --- Multi-Criteria Ranking Implementation ---

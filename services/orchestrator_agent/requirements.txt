@@ -2,3 +2,4 @@ google-adk
 python-dotenv
 google-cloud-firestore
 google-generativeai
+uvicorn
