@@ -3,13 +3,19 @@ import random
 import json
 from typing import List, Dict, Any
 import google.generativeai as genai
-from .firebase_config import db
+from google.cloud import firestore
 
 # --- Initialization & Setup ---
 
+# Initialize Firestore client directly.
+# In a Cloud Run environment, this will automatically use the service account credentials.
+try:
+    db = firestore.Client()
+except Exception as e:
+    print(f"CRITICAL: Failed to initialize Firestore client. Error: {e}")
+    db = None
+
 # Configure Generative AI client
-# When running on Google Cloud, the library automatically authenticates using the
-# service account's credentials. No explicit configuration is needed.
 try:
     llm = genai.GenerativeModel('gemini-2.5-pro')
 except Exception as e:
