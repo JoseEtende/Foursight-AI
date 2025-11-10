@@ -83,10 +83,34 @@ validate_agent_urls() {
 
 build_push_image() {
   local image="$1"
-  echo "Building orchestrator image: $image"
-  docker build -f services/orchestrator/Dockerfile -t "$image" .
-  echo "Pushing image: $image"
-  docker push "$image"
+  local cb_dir="$PROJECT_ROOT/.cloudbuild"
+  local cb_cfg="$cb_dir/orchestrator.yaml"
+  mkdir -p "$cb_dir"
+
+  # Generate a Cloud Build config dynamically
+  cat > "$cb_cfg" <<EOF
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'build'
+    - '-f'
+    - 'services/orchestrator_agent/Dockerfile'
+    - '-t'
+    - '${image}'
+    - '.'
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - 'push'
+    - '${image}'
+images:
+- '${image}'
+EOF
+
+  echo "Submitting Cloud Build for orchestrator using config '$cb_cfg'"
+  gcloud builds submit "$PROJECT_ROOT" \
+    --project "$GCP_PROJECT_ID" \
+    --ignore-file "$PROJECT_ROOT/.gcloudignore" \
+    --config "$cb_cfg"
 }
 
 build_env_vars_arg() {

@@ -21,6 +21,7 @@ The core user journey is as follows:
 - **Primary Technologies:** **Next.js/React + TypeScript**, using **ShadCN UI** components; prototyping with **Firebase Studio**.
 
 ### 2.1 Design Tokens (replicate `frontend style.jpg` with decided palette)
+
 - Use the decided color palette and tokens consistently across all screens.
 - Base tokens for light theme (aligned with `ux-design-directions.html`):
   - `--background: #F0F0F3`
@@ -39,6 +40,7 @@ The core user journey is as follows:
   - Apply a very subtle background SVG pattern at ~4% opacity under content.
 
 ### 2.2 Component Specs (visual replication)
+
 - Cards: `border: 1px solid var(--border-color)`, `background: var(--card-background)`, `backdrop-filter: blur(10px)`, `border-radius: var(--radius)`, `box-shadow: var(--shadow-light)`; hover uses slightly higher opacity and shadow.
 - Buttons: primary uses `--primary` / `--primary-foreground`, medium radius, semi-bold text; secondary uses neutral greys.
 - Badges/Tags: minimal border, subtle shadow; color-coded by framework mapping.
@@ -46,6 +48,7 @@ The core user journey is as follows:
 - Typography: Sans `Montserrat` or system font; weights 500–700 for headers; body 400.
 
 ### 2.3 Navigation Blueprint (as in `frontend style.jpg`)
+
 - **Top Nav (fixed):** Height ~64px, glassy card background, bottom border using `--border-color`. Left: brand `FourSight` in `--primary`; right: user avatar and name.
 - **Floating Secondary Nav (centered under top nav):** Button group: `Dashboard`, `+ New Analysis`, `History`, `Framework Library`. Active state: `--primary` background, white text, subtle shadow.
 - Maximize horizontal workspace; avoid left sidebar in desktop. On mobile, collapse into a bottom tab bar.
@@ -74,9 +77,11 @@ The core user journey is as follows:
 - Should have a consistent, clean design that overlays the current view.
 
 ### 3.4. Charts & Visualizations
+
 - Framework Frequency (bar chart) and Confidence Over Time (histogram) must use the base palette and framework colors for series, with accessible contrast on axes and labels.
 
 ### 3.5. Micro-interactions
+
 - Hover: elevate cards by increasing opacity and shadow; scale by 1.01.
 - Active nav button: soft inner shadow to imply pressed state.
 - Loading: linear shimmer on cards and subtle pulse on primary CTA.
@@ -191,8 +196,8 @@ The core user journey is as follows:
 
 - **Responsiveness:** The entire application must be fully responsive and usable on a range of screen sizes, from mobile to desktop.
 - **Performance:** The UI must remain fluid and responsive, especially during backend processing. Use loading indicators to provide feedback to the user (Story 4.1).
- - **Accessibility:** Verify color contrast (WCAG AA). Ensure keyboard navigation for cards and nav.
- - **Consistency:** Centralize framework colors; no ad-hoc color choices in components.
+- **Accessibility:** Verify color contrast (WCAG AA). Ensure keyboard navigation for cards and nav.
+- **Consistency:** Centralize framework colors; no ad-hoc color choices in components.
 
 ## 6. Centralized Color Mapping (Story 4.5)
 
@@ -211,11 +216,13 @@ The core user journey is as follows:
 - Components must reference these colors via a centralized utility (no hard-coded inline colors).
 
 ## 7. Animation & Motion Guidelines
+
 - Duration: 150–200ms for hover/press, 300–400ms for modal open/close.
 - Easing: Standard `cubic-bezier(0.2, 0, 0, 1)`.
 - Avoid large parallax; keep motion subtle and informative.
 
 ## 8. Prototyping in Firebase Studio
+
 - Import this prompt and `frontend style.jpg` as the visual reference.
 - Configure Style Tokens based on Section 2.1 before component generation.
 - Use ShadCN primitives where possible; apply tokens and variants:
@@ -225,12 +232,14 @@ The core user journey is as follows:
 - Generate screens following Section 4; verify visual parity with `frontend style.jpg`.
 
 ## 9. Deliverables
+
 - High-fidelity mockups for each screen, matching `docs/frontend style.jpg` with the decided palette.
 - A component library (tokens, cards, buttons, badges, charts) aligned with Claymorphism.
 - Motion specs and accessibility notes.
 - Exported CSS variables/theme file for implementation.
 
 ## 10. Visual Parity Checklist (against `frontend style.jpg`)
+
 - Top nav uses glassy card background and `--primary` brand accent.
 - Floating secondary nav centered, with clear active/hover states.
 - Framework selection 2x2 grid with colored borders and red `X` pills.

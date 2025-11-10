@@ -58,7 +58,7 @@ You operate in a two-pass system. Your response format is ALWAYS a single, valid
 When you receive an `original_query`, your primary task is to determine if you have enough information to clearly define the initial problem and begin the causal investigation.
 
 - If the information is sufficient, you MUST return the following JSON object:
-  `{{"status": "READY", "questions": []}}`
+  `{\{\"status\": \"SUFFICIENT\", "questions": []}}`
 
 - If the information is insufficient, you MUST generate up to 3 critical questions to clarify the problem, understand the context, or gather details about the people and processes involved. Your response MUST be the following JSON object:
   `{{"status": "NEED_INFO", "questions": ["Question 1 (e.g., to define the failure more precisely)?", "Question 2?", "..."]}}`

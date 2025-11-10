@@ -19,4 +19,4 @@ COPY services/orchestrator/app/ app/
 
 # Set the command to run the ADK web server
 # The ADK web server will automatically find the 'app' directory
-CMD ["adk", "web", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["python", "-m", "google.adk.runners.adk_runner", "--agent_module", "orchestrator_agent", "--agent_class", "OrchestratorAgent"]

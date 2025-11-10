@@ -58,7 +58,7 @@ You operate in a two-pass system. Your response format is ALWAYS a single, valid
 When you receive an `original_query`, your primary task is to determine if you have enough information to perform a complete Pros and Cons analysis.
 
 - If the information is sufficient, you MUST return the following JSON object:
-  `{{"status": "READY", "questions": []}}`
+  `{\{\"status\": \"SUFFICIENT\", "questions": []}}`
 
 - If the information is insufficient, you MUST generate up to 3 critical questions to gather the necessary information. Your response MUST be the following JSON object:
   `{{"status": "NEED_INFO", "questions": ["Question 1?", "Question 2?", "..."]}}`

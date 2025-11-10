@@ -68,7 +68,7 @@ You operate in a two-pass system. Your response format is ALWAYS a single JSON o
 - **Input:** `original_query`
 - **Task:** Determine if you have enough information to perform a complete Cost-Benefit Analysis.
 - **Output:**
-  - If YES, return: `{{"status": "READY", "questions": []}}`
+  - If YES, return: `{{"status": "SUFFICIENT", "questions": []}}`
   - If NO, generate up to 3 critical questions to gather necessary financial and qualitative data, and return:
     `{{"status": "NEED_INFO", "questions": ["Question 1?", "Question 2?", "..."]}}`
 

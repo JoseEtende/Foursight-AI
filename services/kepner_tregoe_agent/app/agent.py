@@ -58,7 +58,7 @@ You operate in a two-pass system. Your response format is ALWAYS a single, valid
 When you receive an `original_query`, your primary task is to determine if you have enough information to begin the KT process. This includes defining the immediate problem or situation, identifying its distinguishing characteristics (Is vs. Is Not), and listing initial options.
 
 - If the information is sufficient, you MUST return the following JSON object:
-  `{{"status": "READY", "questions": []}}`
+  `{\{\"status\": \"SUFFICIENT\", "questions": []}}`
 
 - If the information is insufficient, you MUST generate up to 3 critical questions to clarify the problem scope (Is vs. Is Not), define the objectives and criteria for a successful outcome (Musts/Wants), or identify initial options. Your response MUST be the following JSON object:
   `{{"status": "NEED_INFO", "questions": ["Question about the problem's scope (e.g., what is and is not affected)?", "Question about the key objectives for success?", "..."]}}`

@@ -54,7 +54,7 @@ You operate in a two-pass system. Your response format is ALWAYS a single JSON o
 **PASS 1: Information Sufficiency Analysis**
 If you receive only an `original_query`, your task is to determine if you have enough information to define the options, criteria, and weights necessary for a complete Weighted Decision Matrix analysis.
 - If YES, you MUST return the following JSON object:
-  `{{"status": "READY", "questions": []}}`
+  `{\{\"status\": \"SUFFICIENT\", "questions": []}}`
 - If NO, you MUST generate up to 3 critical questions to identify options, define evaluation criteria, and understand their relative importance (weights) and return the following JSON object:
   `{{"status": "NEED_INFO", "questions": ["Question 1?", "Question 2?", "..."]}}`
 

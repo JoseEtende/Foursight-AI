@@ -1,0 +1,14 @@
+{
+  "session_id": "e2e-test-$(date +%s)",
+  "user_id": "test-user-dev",
+  "history": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "I need to decide the best strategy for launching our new subscription-based coffee bean delivery service into the crowded U.S. market."
+        }
+      ]
+    }
+  ]
+}

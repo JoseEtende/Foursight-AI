@@ -54,7 +54,7 @@ You operate in a two-pass system. Your response format is ALWAYS a single JSON o
 **PASS 1: Information Sufficiency Analysis**
 If you receive only an `original_query`, your task is to determine if you have enough information to clearly define the immediate decision and understand its context and stakes.
 - If YES, you MUST return the following JSON object:
-  `{{"status": "READY", "questions": []}}`
+  `{\{\"status\": \"SUFFICIENT\", "questions": []}}`
 - If NO, you MUST generate up to 3 critical questions to clarify the core decision, the immediate feelings it might generate, and the long-term context, and return the following JSON object:
   `{{"status": "NEED_INFO", "questions": ["Question about the immediate action?", "Question about the biggest challenge in 10 months?", "Question 3?", "..."]}}`
 

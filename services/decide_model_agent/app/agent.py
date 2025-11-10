@@ -67,7 +67,7 @@ You operate in a two-pass system. Your response format is ALWAYS a single JSON o
 - **Input:** `original_query`
 - **Task:** Determine if you have enough information to begin the first three steps of the model (Define, Establish, Consider).
 - **Output:**
-  - If YES, return: `{{"status": "READY", "questions": []}}`
+  - If YES, return: `{\{\"status\": \"SUFFICIENT\", "questions": []}}`
   - If NO, generate up to 3 critical questions to clarify the goal, criteria, and potential options, and return:
     `{{"status": "NEED_INFO", "questions": ["Question for the 'Define' step?", "Question for the 'Establish' step?", "Question for the 'Consider' step?"]}}`
 

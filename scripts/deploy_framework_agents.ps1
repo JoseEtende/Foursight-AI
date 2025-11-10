@@ -157,6 +157,7 @@ $agents = @(
   @{ Folder='decide_model_agent';          Service='decide-model-agent';          EnvKey='DECIDE_MODEL_AGENT_URL' },
   @{ Folder='kepner_tregoe_agent';         Service='kepner-tregoe-agent';         EnvKey='KEPNER_TREGOE_AGENT_URL' },
   @{ Folder='rational_decision_making_agent'; Service='rational-decision-making-agent'; EnvKey='RATIONAL_DECISION_MAKING_AGENT_URL' },
+  @{ Folder='five_whys_agent';             Service='five-whys-agent';             EnvKey='FIVE_WHYS_AGENT_URL' },
   @{ Folder='five_whys_agent';             Service='five-whys-agent';             EnvKey='FIVE_WHYS_AGENT_URL' }
 )
 
