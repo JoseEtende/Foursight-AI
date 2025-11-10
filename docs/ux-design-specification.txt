@@ -1,0 +1,541 @@
+# {{project_name}} UX Design Specification
+
+_Created on {{date}} by {{user_name}}_
+_Generated using BMad Method - Create UX Design Workflow v1.0_
+
+---
+
+## Executive Summary
+
+## Executive Summary
+
+This document outlines the User Experience (UX) and User Interface (UI) design for **FourSight**, a multi-agent AI system designed to help business strategists and other professionals make better, more confident decisions.
+
+* **Vision:** To provide a team of AI consultants that run multiple decision-making frameworks in parallel, synthesizing the results into a single, actionable recommendation.
+* **Core Experience:** The central user journey is initiating a new decision analysis with the Orchestrator agent, from inputting a query to receiving a final, synthesized answer.
+* **Desired Emotional Impact:** The user should feel **empowered**, **efficient**, and **delighted** throughout the process.
+* **Design Direction:** We will follow a design philosophy called **"Clarity in Motion."** Inspired by the clean, responsive, and user-centric interfaces of Perplexity, Microsoft Teams, and ClickUp, this direction prioritizes a minimalist UI, purposeful use of color, and subtle animations to create an experience that is both professional and engaging.
+* **Platform:** The primary platform will be a responsive web application, ensuring a seamless experience on both desktop and mobile browsers.
+* **UX Complexity:** The project has a **moderate** level of UX complexity. While the primary user flow is linear, it contains novel interaction patterns (e.g., the 2x2 framework selection grid, the agent Q&A session) that require a high degree of clarity and intuitive design.
+
+---
+
+## 1. Design System Foundation
+
+### 1.1 Design System Choice
+
+### 1.1 Design System Choice
+
+
+
+To ensure a consistent, accessible, and high-quality user interface, FourSight will be built upon a modern design system. This provides a solid foundation of reusable components and a clear visual language.
+
+
+
+*   **Component Library:** **shadcn/ui**
+
+    *   **Rationale:** shadcn/ui was selected for its modern architecture, excellent accessibility, and developer-friendly approach. It provides full ownership over the component code, allowing for deep customization while maintaining a consistent and well-documented foundation. This aligns perfectly with our "Clarity in Motion" design direction.
+
+
+
+*   **Visual Theme:** **Modern Layered Design**
+
+
+
+    *   **Source:** A custom theme from the Tweakcn theme editor for shadcn/ui.
+
+
+
+    *   **Rationale:** This theme provides a unique, tactile, and visually engaging aesthetic that sets FourSight apart. Its use of soft shadows and layered elements creates a sense of depth and clarity.
+
+
+
+*   **Primary Color Palette:**
+
+    *   The core color scheme will be based on the Claymorphism theme's **grey and purple** palette. This creates a professional, focused, and modern look.
+
+    *   Subtle **transparency** will be used on elements like cards and page backgrounds to enhance the layered, claymorphic effect.
+
+
+
+*   **Color Application Strategy:**
+
+    *   To maintain a clean and uncluttered interface, the use of color will be purposeful and restrained.
+
+    *   Framework-specific color-coding will be applied **subtly**, restricted to the **titles and borders** of the framework cards. The main body of the cards will remain consistent with the Claymorphism theme.
+
+
+
+#### Developer Notes
+
+To install the specified Claymorphism theme, run the following command in your project terminal:
+
+```bash
+
+npx shadcn-ui@latest add https://tweakcn.com/r/themes/claymorphism.json
+
+```
+
+---
+
+## 2. Core User Experience
+
+### 2.1 Defining Experience
+
+### 2.1 Defining Experience
+
+The defining experience of FourSight is the seamless transition from a complex problem to a clear, well-reasoned solution. The user-facing description that encapsulates this is:
+
+> **"It's the app that turns your tough questions into a clear recommendation by using a team of AI strategists."**
+
+This statement sets the user's expectation for a collaborative, solution-oriented experience.
+
+### 2.2 Novel UX Pattern: AI Strategy Team Selection
+
+The core of the FourSight experience is the "AI Strategy Team Selection" screen. This section details the mechanics of this novel interaction pattern, designed to be intuitive, fluid, and empowering.
+
+**User Goal:** To review the AI-recommended frameworks and either confirm them or customize the selection to their preference, ensuring exactly four frameworks are chosen for the analysis.
+
+**Interaction Flow & Mechanics:**
+
+1. **Initial State:** The user is presented with a 2x2 grid containing four interactive "Framework Cards" (the AI's top recommendations). Below this grid is a list of the remaining six frameworks, displayed as smaller "Framework Buttons."
+
+2. **Deselecting a Framework:**
+    * **Trigger:** The user initiates a change by clicking a red "X" icon located in the top-right corner of a Framework Card.
+    * **Feedback (Animation):** Upon clicking the "X", the card will execute a smooth **fade-out and shrink** animation, visually transitioning from a large card into a small button.
+    * **State Change:** The animated element then travels to the end of the list of Framework Buttons at the bottom of the screen. The 2x2 grid now shows a clearly visible empty slot.
+
+3. **Exploring Alternatives:**
+    * **Trigger:** The user hovers their mouse over any of the Framework Buttons at the bottom.
+    * **Feedback:** A pop-up text field (tooltip or small card) appears above the button, displaying the rationale for that framework. This allows for quick evaluation without committing to a selection.
+
+4. **Selecting a Framework:**
+    * **Trigger:** The user clicks on one of the Framework Buttons at the bottom. This action is only effective if there is an empty slot in the 2x2 grid.
+    * **Feedback (Animation):** A **reverse animation** occurs. The Framework Button fades out from the bottom list and simultaneously, a new Framework Card animates into the empty slot in the 2x2 grid (fade-in and expand).
+    * **State Change:** The 2x2 grid is now populated with the newly selected framework, and the button at the bottom is removed from the list.
+
+5. **Error Handling (Grid Full):**
+    * **Trigger:** The user clicks on a Framework Button at the bottom when all four slots in the 2x2 grid are already filled.
+    * **Feedback:** The clicked button will perform a brief, subtle **vibration or "shake" animation**. This provides immediate, non-intrusive feedback that the action cannot be performed, without the need for an error message.
+
+This interaction model, combining clear triggers with fluid animations and subtle error handling, is designed to make the novel experience of assembling an AI team feel both intuitive and delightful, perfectly aligning with our "Clarity in Motion" design direction.
+
+### 2.3 Core Experience Principles
+
+To ensure a cohesive and high-quality user experience, the design of FourSight will be guided by the following four core principles. These principles are derived from our "Clarity in Motion" design direction and the desired emotional impact of making the user feel empowered, efficient, and delighted.
+
+1. **Speed:** The application must feel fast and responsive. Key interactions, such as selecting and deselecting frameworks, will provide instantaneous feedback. Animations will be smooth and optimized to enhance the user experience, not hinder it.
+
+2. **Guidance:** The interface will act as a natural guide. We will prioritize intuitive design and visual cues over heavy text-based instructions. The user should always understand what to do next without feeling overwhelmed or lost.
+
+3. **Flexibility:** The user is always in control. The system provides intelligent recommendations, but the user has the ultimate authority to accept, reject, and customize their "team" of AI strategists. The interface will empower users to make their own choices easily.
+
+4. **Feedback:** The system will provide clear, immediate, and elegant feedback for every interaction. From subtle hover effects to the gentle shake animation for invalid actions, the user will always have a clear understanding of the system's state and the result of their actions.
+
+---
+
+## 3. Visual Foundation
+
+### 3.1 Color System
+
+### 3.1 Color System & Visual Style
+
+The visual foundation of FourSight is built on the "Clarity in Motion" principle, brought to life through a modern and tactile design theme.
+
+*   **Theme:** **Modern Layered Design**
+    *   **Source:** A custom theme from the Tweakcn theme editor for shadcn/ui.
+    *   **Rationale:** This theme provides a unique, layered, and visually engaging aesthetic. Its use of soft shadows and inset effects create a sense of depth and clarity that is both modern and intuitive.
+
+*   **Primary Color Palette:**
+    *   The core color scheme is based on the Claymorphism theme's **grey and purple** palette. This combination is professional, promotes focus, and is visually appealing.
+    *   **Consistent Transparency:** To ensure the subtle background pattern is always visible and to enhance the layered, tactile effect, a consistent, subtle transparency will be applied to **all primary UI components**, including the sidebar, cards, modals, and menus.
+
+### 3.2 Typography
+
+To ensure readability and a clean, modern aesthetic, we will use a carefully selected font and a consistent type scale.
+
+*   **Font Family:** **Poppins**
+    *   **Rationale:** Poppins is a modern, geometric sans-serif typeface that provides a clean and friendly aesthetic, complementing the Claymorphism theme perfectly.
+
+*   **Type Scale:** A consistent typographic scale will be used to establish a clear visual hierarchy throughout the application.
+    *   **Headings (h1, h2, h3):** Used for page titles and major section headers.
+    *   **Body Text:** The default size for all paragraphs and standard text.
+    *   **Subtle Text:** A smaller size for captions, helper text, and less critical information.
+
+### 3.3 Spacing & Layout
+
+A consistent spacing system is crucial for creating a harmonious and visually balanced layout.
+
+*   **Grid System:** **8-Point Grid**
+    *   **Rationale:** We will adhere to a standard 8-point grid system. All component dimensions, margins, and paddings will be in multiples of 8px (e.g., 8, 16, 24, 32, 40). This ensures a consistent and rhythmic layout across the entire application.
+
+### 3.4 Background Style
+
+To add a layer of subtle sophistication and visual interest, the application background will feature a light, low-opacity pattern.
+
+*   **Pattern:** A seamless pattern composed of various icons related to strategy and decision-making (e.g., chess pieces, graphs, lightbulbs, nodes).
+*   **Visibility:** The pattern will be barely visible, with a very high transparency, ensuring it does not distract from the main content but adds a unique, branded texture to the overall aesthetic.
+
+---
+
+## 4. Design Direction
+
+### 4.1 Chosen Design Approach
+
+### 4.1 Chosen Design Approach
+
+After reviewing multiple design directions in the interactive showcase, we have selected a **hybrid approach** that combines the strengths of the "Productivity Hub" and "Focused Minimalist" concepts.
+
+This hybrid model provides the user with the best of both worlds: a data-rich environment for overview and a focused, calm environment for deep work.
+
+**Core Principles of the Hybrid Direction:**
+
+1.  **Productivity Hub Dashboard (from Direction #2):**
+    *   **Layout:** The main dashboard will feature a multi-column, data-dense layout. It will prominently display key metrics such as "Decisions Analyzed," "Average Confidence," "Top Framework," and "Total Cost."
+    *   **Navigation:** The application will feature a two-tiered navigation system for clarity and ease of use.
+        *   A **fixed top navigation bar** will remain visible at all times, containing the application logo and name on the left, and a user profile icon on the right.
+        *   Below the top bar, a **floating, retractable sidebar** will provide access to the main sections (Dashboard, New Analysis, etc.). This sidebar will have rounded top and bottom corners and will not touch the top bar or the bottom of the page, giving it a modern, clean appearance.
+    *   **Rationale:** This approach empowers repeat users by giving them a comprehensive overview of their activity at a glance, aligning with the "efficient and productive" emotional goal.
+
+2.  **Focused Minimalist Workflow (from Direction #1):**
+    *   **Layout:** When the user initiates a new analysis, the interface will transition to a clean, single-column, centered layout. This applies to the "Framework Selection" screen, the Q&A session, and the final "Recommendation" screen.
+    *   **Rationale:** This minimalist approach reduces distractions by automatically collapsing the sidebar to its icon-only state, allowing the user to concentrate fully on the critical task at hand while keeping navigation accessible.
+
+**The User Journey:**
+
+The user begins in a data-rich "hub" to get their bearings and see their history, then seamlessly transitions into a focused "spoke" to perform the core task of decision analysis. This common and effective UX pattern ensures that the interface is perfectly tailored to the user's needs at each stage of their journey.
+
+**Interactive Mockups:**
+
+* Design Direction Showcase: [ux-design-directions.html](./ux-design-directions.html)
+
+---
+
+## 5. User Journey Flows
+
+### 5.1 Critical User Paths
+
+### 5.1 Core Decision Analysis Workflow
+
+This section documents the primary user journey for FourSight. The flow is designed to be a conversational and guided experience, making the user feel as though they are collaborating with a team of expert AI strategists.
+
+**Step 1: The Conversational Start**
+
+1.  **Entry Point:** The user navigates to the "New Analysis" screen.
+2.  **UI:** The screen is clean and focused, presenting a single, elegant text input field. Above it, a prompt from the Orchestrator reads: *"What decision is on your mind?"*
+3.  **User Action:** The user types their core decision query (e.g., *"Should we expand into Europe?"*) and submits.
+4.  **Conversational Follow-up:** The interface animates to reveal a new message from the Orchestrator: *"Understood. Before I assemble the team, is there any additional context, background, or data you can share? The more detail, the better the analysis."*
+5.  **Context Input:** A new text area appears, allowing the user to add more detail. A button labeled *"No, proceed with analysis"* is also present for them to skip this step.
+
+**Step 2: AI Strategy Team Selection**
+
+1.  **UI Transition:** The screen smoothly transitions to the "AI Strategy Team Selection" view, featuring the 2x2 grid of recommended frameworks.
+2.  **Orchestrator's Guidance:** A message appears above the grid: *"I've analyzed your query and assembled a recommended team of AI strategists. Feel free to accept this team, or customize it by selecting the frameworks you prefer."*
+3.  **User Interaction:** The user interacts with the grid as defined in the **Novel UX Pattern** section (deselecting with the 'X', selecting by clicking a button from the list below, with fluid animations).
+4.  **Call to Action:** A primary button labeled **"Start Analysis"** is visible. It is disabled by default and becomes active only when exactly four frameworks are in the 2x2 grid.
+
+**Step 3: Information Sufficiency Analysis**
+
+1.  **User Action:** The user clicks the active "Start Analysis" button.
+2.  **UI Transition:** The view changes to an "Analysis in Progress" screen, showing the four selected framework cards.
+3.  **Orchestrator's Message:** *"Team assembled. The strategists are now performing an 'Information Sufficiency Analysis' to see if your query has enough detail for them to proceed."*
+4.  **Visual Feedback:** Each of the four cards displays a "Scanning..." or "Reviewing..." animation for a brief period (e.g., 5-10 seconds).
+5.  **Status Update:** The animations stop, and the Orchestrator presents the results: *"The initial review is complete. Here is the status of your team:"*
+    *   A bulleted list shows the status of each agent (e.g., "SWOT Analysis Agent: Has sufficient information," "Cost-Benefit Agent: Needs more information").
+6.  **Call to Action:** A single button, **"Provide Details,"** appears if any agent requires more information. If all agents are ready, the flow proceeds directly to Step 5.
+
+**Step 4: The Focused Q&A Session**
+
+1.  **UI Transition (Focus Mode):** Upon clicking "Provide Details," the UI animates. The cards for "ready" agents fade back, while the card for the first agent needing information expands into a simple chat interface.
+2.  **Chat Interface:**
+    *   **Header:** Displays the agent's name (e.g., "Cost-Benefit Analysis") and a progress indicator ("Question 1 of 3").
+    *   **Interaction:** The agent's first question appears. The user types their answer and sends it. The chat updates, and the second question appears. This continues sequentially.
+3.  **Automatic Transition:** Once the user answers the final question for an agent, the chat window animates back into its card form, now showing a "Ready" status. The UI then automatically transitions to the next agent that needs information, repeating the process.
+
+**Step 5: Final YOLO Mode Analysis**
+
+1.  **Trigger:** This step is triggered automatically as soon as the user answers the last question for the last agent (or immediately after the Sufficiency Analysis if no questions were needed).
+2.  **UI State:** All four framework cards are visible, each with a "Ready" status.
+3.  **Orchestrator's Final Message:** *"Excellent, the team has all the information they need. The final analysis is now running in YOLO mode."*
+4.  **Visual Feedback:** All four cards switch to a synchronized **"Analyzing..."** animation, indicating that the final, parallel processing has begun. The user then waits for the final recommendation screen.
+
+---
+
+## 6. Component Library
+
+### 6.1 Component Strategy
+
+### 6.1 Component Strategy
+
+Our component strategy is designed to be efficient, consistent, and aligned with our chosen design system. We will maximize the use of pre-built components while creating a few bespoke components for FourSight's unique interactions.
+
+**1. Leverage the Design System (shadcn/ui)**
+
+The vast majority of the UI will be constructed using the standard, accessible components provided by **shadcn/ui**. This includes, but is not limited to:
+
+*   Buttons
+*   Form Inputs (Text fields, Text areas)
+*   Cards (for dashboard metrics and general content)
+*   Modals & Dialogs
+*   Tooltips
+*   Icons
+*   Layout Primitives
+
+**Rationale:** Using the base library for all standard components ensures visual and interactive consistency, adherence to accessibility best practices, and significantly accelerates the development process. All these components will be automatically styled according to our **Claymorphism** theme.
+
+**2. Build Bespoke Components for Novel UX**
+
+For the unique "AI Strategy Team Selection" experience, we will develop a small set of custom, bespoke components.
+
+*   **Custom Components Required:**
+    1.  **Framework Card:** The main interactive card within the 2x2 grid. This component will include states for hover, the red "X" deselect button, and props for framework-specific border colors and content.
+    2.  **Framework Button:** The smaller, clickable button representing a non-selected framework in the list below the grid. This component will include a hover state that triggers the rationale pop-up.
+    3.  **The 2x2 Grid Container:** This "smart" container component will manage the state of the four selected frameworks, handle the logic for adding and removing cards, and control the activation of the "Start Analysis" button.
+
+**Rationale:** Building these as custom components is necessary because their appearance and behavior are unique to the core FourSight experience and are not found in standard component libraries. This focused approach allows us to perfect the most critical interaction in the user journey.
+
+---
+
+## 7. UX Pattern Decisions
+
+### 7.1 Consistency Rules
+
+### 7.1 Consistency Rules
+
+To ensure a cohesive, predictable, and intuitive user experience, the following UX patterns will be applied consistently across the FourSight application. These rules are derived from our "Clarity in Motion" design direction.
+
+**1. Button Hierarchy**
+
+A clear visual hierarchy for buttons helps users immediately understand the importance of different actions.
+
+*   **Primary Action:** The most important action on a screen.
+    *   **Style:** Solid purple background with white text.
+    *   **Examples:** "Start Analysis," "Send," "Submit."
+*   **Secondary Action:** An alternative, less critical action.
+    *   **Style:** Grey outline with purple text.
+    *   **Examples:** "Cancel," "Go Back," "Skip."
+*   **Destructive Action:** An action that results in data loss (e.g., deleting).
+    *   **Style:** Red outline with red text.
+    *   **Examples:** "Delete Analysis," "Remove."
+
+**2. Feedback Patterns**
+
+The system will provide clear and immediate feedback for user actions.
+
+*   **Success:**
+    *   **Pattern:** A green "toast" notification that slides in from the top-right of the screen and automatically dismisses after 3 seconds.
+*   **Error:**
+    *   **Pattern:** A red "toast" notification that slides in from the top-right and must be manually dismissed by the user.
+*   **Loading / In Progress:**
+    *   **Page-Level:** A centrally located, subtly pulsing version of the FourSight logo.
+    *   **Component-Level:** A small, unobtrusive spinner icon within the component that is loading (e.g., inside a button after it has been clicked).
+
+**3. Form Patterns**
+
+Forms will be simple, clean, and easy to use.
+
+*   **Layout:** All form labels will be placed *above* their corresponding input fields.
+*   **Validation:**
+    *   **Timing:** Input validation will occur *onBlur* (when the user clicks out of a field).
+    *   **Error Display:** A simple, red text message will appear directly below the field with the error. The field's border will also turn red.
+*   **Required Fields:** Required fields will be marked with a simple asterisk (*) next to the label.
+
+**4. Modal & Dialog Patterns**
+
+Modals will be used for focused, blocking actions.
+
+*   **Dismissal:** Modals can be dismissed by clicking a dedicated "Close" (X) button, clicking a "Cancel" button, or by pressing the `Escape` key.
+*   **Focus Management:** When a modal opens, keyboard focus will be automatically trapped within it, ensuring accessibility.
+
+**5. Empty State Patterns**
+
+Empty states (e.g., a new user's dashboard) are an opportunity to guide and educate.
+
+*   **Content:** Empty states will not be blank. They will contain:
+    1.  A simple, friendly illustration or icon.
+    2.  A clear, concise headline explaining the state (e.g., "No Analyses Yet").
+    3.  A brief sentence of encouragement.
+    4.  A primary button showing the user the next step (e.g., "Start Your First Analysis").
+
+---
+
+## 8. Responsive Design & Accessibility
+
+### 8.1 Responsive Strategy
+
+### 8.1 Responsive Strategy
+
+The FourSight application will be fully responsive, adapting its layout and navigation to provide an optimal experience on all screen sizes. The strategy is based on our hybrid design direction.
+
+*   **Desktop (Large Screens > 1024px):**
+    *   **Layout:** The primary, full-featured experience.
+    *   **Dashboard:** Displays the multi-column, data-rich "Productivity Hub" layout.
+    *   **Navigation:** A persistent, always-visible sidebar provides access to all application sections.
+
+*   **Tablet (Medium Screens, 640px - 1024px):**
+    *   **Layout:** Adapts to a simpler, two-column or single-column layout to maintain readability.
+    *   **Navigation:** The sidebar collapses into a "hamburger" menu icon to save space, expanding as an overlay when clicked.
+
+*   **Mobile (Small Screens < 640px):**
+    *   **Layout:** A single-column layout is enforced for all screens. Cards and content will stack vertically.
+    *   **Navigation:** The sidebar is replaced with a **bottom tab bar** for primary navigation (e.g., Dashboard, New Analysis, History), which is a more ergonomic pattern for mobile devices.
+    *   **Focused Workflow:** The minimalist workflow screens (Framework Selection, Q&A) will naturally adapt to the single-column format, ensuring a seamless and focused experience.
+
+### 8.2 Accessibility Strategy
+
+Accessibility is a core requirement, not an afterthought. We are committed to creating an application that is usable by everyone, including people with disabilities.
+
+*   **Compliance Target:** **WCAG 2.1 Level AA**
+    *   **Rationale:** This is the globally recognized standard for web accessibility and is a legal requirement in many jurisdictions. Targeting Level AA ensures a high-quality, inclusive experience for all users.
+
+*   **Key Accessibility Requirements:**
+    *   **Color Contrast:** The Claymorphism color palette will be verified to ensure all text meets the minimum contrast ratios required by WCAG AA.
+    *   **Keyboard Navigation:** All interactive elements—buttons, links, form fields, and custom components like the Framework Cards—must be fully navigable and operable using only a keyboard.
+    *   **Focus Indicators:** A clear and visible focus state will be designed for all interactive elements to show keyboard users where they are on the page.
+    *   **Screen Reader Support (ARIA):** Proper ARIA (Accessible Rich Internet Applications) attributes will be used to describe the purpose and state of all components, especially our novel "AI Strategy Team Selection" grid, ensuring it is understandable to screen reader users.
+    *   **Semantic HTML:** The application will be built with semantic HTML to provide a solid, accessible foundation.
+    *   **Alt Text:** All meaningful images and icons will have descriptive alternative text.
+
+---
+
+## 9. Implementation Guidance
+
+### 9.1 Completion Summary
+
+{{completion_summary}}
+
+---
+
+## Appendix
+
+### AI Frontend Generation Prompt
+
+The following prompt is designed for use with AI UI generation tools like Lovable to translate this design specification into high-fidelity mockups.
+
+---
+
+**Project:** FourSight - A Multi-Agent AI Decision Analysis Tool
+
+**Core Concept:** An application where a user collaborates with a "team of AI strategists" to analyze a complex decision. The app intelligently recommends four decision-making frameworks, runs them in parallel, and synthesizes the results into a single, confident recommendation.
+
+**Design Philosophy:** "Clarity in Motion" - The UI should be clean, modern, and uncluttered, with subtle, purposeful animations that guide the user and make the application feel responsive and alive.
+
+**Visual Style & Design System:**
+
+*   **Component Library:** The design should be based on **shadcn/ui**.
+*   **Theme:** Use a **modern, layered design**. This involves a light grey background (`#F0F0F3`), with cards and elements having a soft, layered, almost "pressed-out" look. Use soft, diffused shadows and subtle inner shadows.
+*   **Transparency:** Apply a subtle, consistent transparency (e.g., `rgba(255, 255, 255, 0.6)`) to **all primary UI components** (sidebar, cards, modals, menus, etc.). This is crucial for allowing the background pattern to show through and creating a sense of depth.
+*   **Typography:**
+    *   **Font:** **Poppins**.
+    *   **Hierarchy:** Use a clear type scale for headings and body text.
+*   **Spacing:** Adhere to an **8-point grid system** for all spacing, padding, and margins to ensure a consistent, rhythmic layout.
+
+**Key Screens to Generate:**
+
+I need you to generate the UI for the three most critical screens in the user journey.
+
+**Screen 1: The Dashboard (Productivity Hub)**
+
+*   **Layout:** A two-column layout featuring a fixed top navigation bar and a floating sidebar on the left.
+
+*   **Top Navigation Bar:**
+
+    *   Should be fixed at the top of the screen.
+
+    *   Contain the **logo and "FourSight" app name** on the far left.
+
+    *   Contain a **user profile icon** on the far right.
+
+*   **Floating Sidebar Navigation:**
+
+    *   Positioned below the top bar, with a slight margin so it doesn't touch.
+
+    *   Should have **rounded top and bottom corners**.
+
+    *   Shown in its expanded state.
+
+    *   The "Dashboard" link should be in an active state (highlighted with the primary purple color `#8B5CF6` and white text).*   **Main Content Area:**
+    *   A "Welcome, Jose" message.
+    *   A primary call-to-action button: "Start New Analysis".
+    *   A 2x2 grid of data cards displaying the following key metrics:
+        1.  **Decisions Analyzed** (e.g., "12")
+        2.  **Avg. Confidence** (e.g., "High")
+        3.  **Top Framework** (e.g., "SWOT")
+        4.  **Total Cost** (e.g., "$4.52")
+    *   Each card should have the Claymorphism style.
+
+**Screen 2: The Framework Selection Screen (Focused Minimalist)**
+
+*   **Layout:** A single-column, centered layout. The sidebar should be visible but collapsed into a narrow, icon-only state to maximize focus on the main content.
+*   **Header:** A message from the "Orchestrator" at the top: *"I've analyzed your query and assembled a recommended team of AI strategists. Feel free to accept this team, or customize it by selecting the frameworks you prefer."*
+*   **The 2x2 Grid:**
+    *   A 2x2 grid of "Framework Cards." Each card is a Claymorphism element.
+    *   Each card should have a title, a short description, and a subtle colored border that is unique to the framework (e.g., blue, green, yellow, purple).
+    *   Each card must have a small, red "X" icon in the top-right corner for deselection.
+*   **Alternative Frameworks:**
+    *   Below the grid, display a list of smaller, clickable "Framework Buttons" for the non-selected frameworks.
+*   **Action Button:**
+    *   A primary "Start Analysis" button at the bottom. This button should be in an active state.
+
+**Screen 3: The Final Recommendation Screen (Focused Minimalist)**
+
+*   **Layout:** Same as Screen 2 - single-column, centered, no sidebar.
+*   **Main Content:**
+    *   A large, prominent Claymorphism card that contains the final recommendation.
+    *   **Top of Card:** The main recommendation and confidence score should be highly visible.
+        *   **Recommendation:** "Proceed" (in the primary purple color).
+        *   **Confidence Score:** "High"
+    *   **Card Body:**
+        *   An "Executive Summary" section.
+        *   A "Key Supporting Points" section (bulleted list).
+        *   A "Key Risks and Contradictions" section.
+    *   **Drill-Down Feature:** Below the main card, include a way for the user to view the detailed analysis from each of the four agents. This could be a set of four clickable tabs or accordion sections.
+
+---
+
+### Related Documents
+
+* Product Requirements: `{{prd_file}}`
+* Product Brief: `{{brief_file}}`
+* Brainstorming: `{{brainstorm_file}}`
+
+### Core Interactive Deliverables
+
+This UX Design Specification was created through visual collaboration:
+
+* **Color Theme Visualizer**: {{color_themes_html}}
+  * Interactive HTML showing all color theme options explored
+  * Live UI component examples in each theme
+  * Side-by-side comparison and semantic color usage
+
+* **Design Direction Mockups**: {{design_directions_html}}
+  * Interactive HTML with 6-8 complete design approaches
+  * Full-screen mockups of key screens
+  * Design philosophy and rationale for each direction
+
+### Optional Enhancement Deliverables
+
+_This section will be populated if additional UX artifacts are generated through follow-up workflows._
+
+<!-- Additional deliverables added here by other workflows -->
+
+### Next Steps & Follow-Up Workflows
+
+This UX Design Specification can serve as input to:
+
+* **Wireframe Generation Workflow** - Create detailed wireframes from user flows
+* **Figma Design Workflow** - Generate Figma files via MCP integration
+* **Interactive Prototype Workflow** - Build clickable HTML prototypes
+* **Component Showcase Workflow** - Create interactive component library
+* **AI Frontend Prompt Workflow** - Generate prompts for v0, Lovable, Bolt, etc.
+* **Solution Architecture Workflow** - Define technical architecture with UX context
+
+### Version History
+
+| Date     | Version | Changes                         | Author        |
+| -------- | ------- | ------------------------------- | ------------- |
+| {{date}} | 1.0     | Initial UX Design Specification | {{user_name}} |
+
+---
+
+_This UX Design Specification was created through collaborative design facilitation, not template generation. All decisions were made with user input and are documented with rationale._

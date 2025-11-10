@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FourSight - Design Directions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-sans: 'Montserrat', sans-serif;
+            --background: #F0F0F3;
+            --foreground: #1a1a1a;
+            --card-background: rgba(255, 255, 255, 0.6);
+            --card-background-hover: rgba(255, 255, 255, 0.9);
+            --border-color: rgba(0, 0, 0, 0.05);
+            --primary: #7C3AED; /* Purple */
+            --primary-foreground: #FFFFFF;
+            --secondary: #A1A1AA; /* Grey */
+            --secondary-foreground: #1a1a1a;
+            --destructive: #EF4444;
+            --success: #22C55E;
+            --radius: 0.8rem;
+            --shadow-sm-light: 3px 3px 6px #c9c9cc, -3px -3px 6px #ffffff;
+            --shadow-sm-dark: inset 3px 3px 6px #c9c9cc, inset -3px -3px 6px #ffffff;
+            --shadow-md-light: 6px 6px 12px #c9c9cc, -6px -6px 12px #ffffff;
+            --shadow-md-dark: inset 6px 6px 12px #c9c9cc, inset -6px -6px 12px #ffffff;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--foreground);
+            margin: 0;
+            padding: 2rem;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .controls {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background-color: var(--card-background);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md-light);
+            z-index: 100;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .controls button {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm-light);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .controls button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md-light);
+        }
+        
+        .controls button:active {
+            box-shadow: var(--shadow-sm-dark);
+            transform: translateY(0);
+        }
+
+        .direction-container {
+            display: none;
+        }
+
+        .direction-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .direction-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .direction-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .direction-header p {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .screen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .screen-mockup {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            background-color: #fff;
+            box-shadow: var(--shadow-md-light);
+            overflow: hidden;
+        }
+
+        .screen-header {
+            padding: 1rem;
+            background-color: rgba(0,0,0,0.02);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        .screen-content {
+            padding: 1.5rem;
+            min-height: 400px;
+        }
+
+        /* Claymorphism Component Styles */
+        .clay-card {
+            background-color: var(--card-background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md-light);
+            padding: 1.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .clay-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 16px #c9c9cc, -8px -8px 16px #ffffff;
+        }
+
+        .clay-button {
+            background-color: var(--background);
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm-light);
+            transition: all 0.2s ease-in-out;
+            color: var(--secondary-foreground);
+        }
+        .clay-button.primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+        .clay-button:hover {
+            transform: translateY(-2px);
+        }
+        .clay-button:active {
+            box-shadow: var(--shadow-sm-dark);
+            transform: translateY(0);
+        }
+        
+        .framework-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1rem;
+            height: 250px;
+        }
+
+        .framework-card {
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm-dark);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border: 2px solid transparent;
+        }
+        .framework-card.swot { border-color: #3B82F6; }
+        .framework-card.cost-benefit { border-color: #10B981; }
+        .framework-card.five-ws { border-color: #F59E0B; }
+        .framework-card.weighted { border-color: #8B5CF6; }
+
+        .framework-card h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+        .framework-card p {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            margin: 0;
+        }
+        .framework-card .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            background-color: var(--destructive);
+            color: white;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 20px;
+        }
+        
+        .framework-alternatives {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        /* Specific Direction Styles */
+        #dir2 .screen-grid { grid-template-columns: 250px 1fr; }
+        #dir2 .dashboard-sidebar { display: flex; flex-direction: column; gap: 0.5rem; }
+        
+        #dir3 .screen-grid { display: flex; overflow-x: auto; padding-bottom: 1rem; }
+        #dir3 .screen-mockup { min-width: 400px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button id="prevBtn">◄ Prev</button>
+        <span id="directionIndicator">1 / 6</span>
+        <button id="nextBtn">Next ►</button>
+    </div>
+
+    <!-- Direction 1: Focused Minimalist -->
+    <div id="dir1" class="direction-container active">
+        <div class="direction-header">
+            <h1>Direction 1: Focused Minimalist</h1>
+            <p>A clean, single-column layout that guides the user step-by-step. Lots of whitespace and a calm, centered approach.</p>
+        </div>
+        <div class="screen-grid">
+            <div class="screen-mockup">
+                <div class="screen-header">Dashboard</div>
+                <div class="screen-content">
+                    <div class="clay-card" style="margin-bottom: 1.5rem;">
+                        <h3 style="margin-top:0;">Welcome, Jose</h3>
+                        <p>Start a new analysis to gain clarity on your next big decision.</p>
+                        <button class="clay-button primary">Start New Analysis</button>
+                    </div>
+                     <div class="clay-card">
+                        <h4 style="margin-top:0;">Recent Activity</h4>
+                        <p>No recent analyses. Your history will appear here.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-mockup">
+                <div class="screen-header">Framework Selection</div>
+                <div class="screen-content">
+                    <h3 style="text-align: center; margin-top: 0;">Assemble Your AI Strategy Team</h3>
+                    <div class="framework-grid">
+                        <div class="framework-card swot"><h4>SWOT Analysis</h4><p>Strengths, Weaknesses, Opportunities, Threats</p><button class="close-btn">X</button></div>
+                        <div class="framework-card cost-benefit"><h4>Cost-Benefit</h4><p>Quantify pros and cons</p><button class="close-btn">X</button></div>
+                        <div class="framework-card five-ws"><h4>5 Ws & H</h4><p>Who, What, When, Where, Why, How</p><button class="close-btn">X</button></div>
+                        <div class="framework-card weighted"><h4>Weighted Matrix</h4><p>Score options against criteria</p><button class="close-btn">X</button></div>
+                    </div>
+                    <div class="framework-alternatives">
+                        <button class="clay-button">PESTEL</button>
+                        <button class="clay-button">Porter's Five</button>
+                        <button class="clay-button">VRIO</button>
+                    </div>
+                </div>
+            </div>
+            <div class="screen-mockup">
+                <div class="screen-header">Recommendation</div>
+                <div class="screen-content">
+                     <div class="clay-card">
+                        <h2 style="margin-top:0; color: var(--primary);">Recommendation: Proceed</h2>
+                        <p style="font-weight: 600;">Confidence Score: High</p>
+                        <p>Synthesized analysis indicates that entering the European market is a favorable decision with manageable risks.</p>
+                        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+                        <h4>Key Supporting Points:</h4>
+                        <ul><li>Large untapped market</li><li>Favorable regulatory environment</li></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 2: Productivity Hub -->
+    <div id="dir2" class="direction-container">
+        <div class="direction-header">
+            <h1>Direction 2: Productivity Hub</h1>
+            <p>A classic sidebar navigation with a dense, multi-column content area. Designed for power users who need information at a glance.</p>
+        </div>
+        <div class="screen-grid">
+             <div class="screen-mockup">
+                <div class="screen-header">Navigation</div>
+                <div class="screen-content dashboard-sidebar">
+                    <button class="clay-button primary">Dashboard</button>
+                    <button class="clay-button">New Analysis</button>
+                    <button class="clay-button">History</button>
+                    <button class="clay-button">Settings</button>
+                </div>
+            </div>
+            <div class="screen-mockup">
+                <div class="screen-header">Dashboard</div>
+                <div class="screen-content">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="clay-card"><h4 style="margin-top:0;">Decisions Analyzed</h4><p style="font-size: 2rem; font-weight: bold;">12</p></div>
+                        <div class="clay-card"><h4 style="margin-top:0;">Avg. Confidence</h4><p style="font-size: 2rem; font-weight: bold;">High</p></div>
+                        <div class="clay-card"><h4 style="margin-top:0;">Top Framework</h4><p style="font-size: 1.5rem;">SWOT</p></div>
+                        <div class="clay-card"><h4 style="margin-top:0;">Total Cost</h4><p style="font-size: 2rem; font-weight: bold;">$4.52</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Direction 3: Card-Based Flow -->
+    <div id="dir3" class="direction-container">
+        <div class="direction-header">
+            <h1>Direction 3: Card-Based Flow</h1>
+            <p>A tactile, modern approach where every piece of content is a card. Uses horizontal scrolling to reveal more information.</p>
+        </div>
+        <div class="screen-grid">
+            <div class="screen-mockup">
+                <div class="screen-header">Dashboard</div>
+                <div class="screen-content">
+                    <h3 style="margin-top:0;">Dashboard</h3>
+                    <div class="clay-card">Your metrics appear here.</div>
+                </div>
+            </div>
+            <div class="screen-mockup">
+                <div class="screen-header">Framework Selection</div>
+                <div class="screen-content">
+                    <h3 style="margin-top:0;">Select Frameworks</h3>
+                     <div class="clay-card">The 2x2 grid would be here.</div>
+                </div>
+            </div>
+             <div class="screen-mockup">
+                <div class="screen-header">Recommendation</div>
+                <div class="screen-content">
+                    <h3 style="margin-top:0;">Final Recommendation</h3>
+                     <div class="clay-card">Your recommendation appears here.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 4, 5, 6 would be structured similarly -->
+    <div id="dir4" class="direction-container">
+        <div class="direction-header"><h1>Direction 4: Immersive & Guided</h1><p>Centered content, large typography, and a strong step-by-step feel to guide new users.</p></div>
+        <p style="text-align:center;">(Content for this direction would be built out here)</p>
+    </div>
+    <div id="dir5" class="direction-container">
+        <div class="direction-header"><h1>Direction 5: Data-Dense Pro</h1><p>Focus on tables, charts, and metrics. Minimal visual flair, designed for expert users who need raw data.</p></div>
+        <p style="text-align:center;">(Content for this direction would be built out here)</p>
+    </div>
+    <div id="dir6" class="direction-container">
+        <div class="direction-header"><h1>Direction 6: Modern Corporate</h1><p>A classic and clean two-panel layout (sidebar + content area). Professional, sharp lines, and a familiar structure.</p></div>
+        <p style="text-align:center;">(Content for this direction would be built out here)</p>
+    </div>
+
+
+    <script>
+        const directions = document.querySelectorAll('.direction-container');
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const indicator = document.getElementById('directionIndicator');
+        let currentDirection = 0;
+
+        function showDirection(index) {
+            directions.forEach((dir, i) => {
+                dir.classList.toggle('active', i === index);
+            });
+            indicator.textContent = `${index + 1} / ${directions.length}`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentDirection = (currentDirection + 1) % directions.length;
+            showDirection(currentDirection);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentDirection = (currentDirection - 1 + directions.length) % directions.length;
+            showDirection(currentDirection);
+        });
+
+        showDirection(currentDirection);
+    </script>
+
+</body>
+</html>

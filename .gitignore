@@ -1,0 +1,47 @@
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Python cache/build
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+.coverage
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+.venv313/
+venv/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+firebase-debug.log
+
+# Environment files and secrets
+.env
+.env.*
+!/.env.example
+!/.env.sample
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.sample
+
+# Service account keys and credentials
+service-account.json
+serviceAccount.json
+*.key.json
+*.credentials.json

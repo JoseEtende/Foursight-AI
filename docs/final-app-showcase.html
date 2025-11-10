@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FourSight - Key Screens Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #F0F0F3;
+            --card-background: rgba(255, 255, 255, 0.6);
+            --sidebar-background: rgba(255, 255, 255, 0.6);
+            --foreground: #1a1a1a;
+            --border-color: #E5E5E7;
+            --primary: #8B5CF6; /* Purple */
+            --primary-foreground: #FFFFFF;
+            --secondary: #A1A1AA; /* Grey */
+            --secondary-foreground: #1a1a1a;
+            --destructive: #EF4444;
+            --radius: 1rem;
+            --shadow-light: 0 8px 24px rgba(0, 0, 0, 0.05);
+            --shadow-dark: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--background);
+            color: var(--foreground);
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .top-nav {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--card-background);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+        
+        .top-nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .user-profile .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .main-layout {
+            display: flex;
+            height: 100%;
+            padding-top: 64px;
+        }
+
+        .sidebar {
+            width: 250px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: width 0.3s ease-in-out;
+            margin: 1rem;
+            border-radius: var(--radius);
+            background-color: var(--sidebar-background);
+            backdrop-filter: blur(10px);
+            height: calc(100vh - 64px - 2rem);
+        }
+        
+        .sidebar.collapsed {
+            width: 80px;
+        }
+        
+        .sidebar-button {
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: calc(var(--radius) - 4px);
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--secondary-foreground);
+            font-size: 1rem;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .sidebar-button:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        .sidebar-button.active {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+        .sidebar.collapsed .sidebar-button span {
+            display: none;
+        }
+
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header { margin-bottom: 2rem; }
+        .header h1 { font-size: 2rem; margin: 0; }
+        .header p { color: var(--secondary); margin-top: 0.25rem; font-size: 1.1rem; }
+
+        /* Claymorphism Components */
+        .clay-card {
+            background-color: var(--card-background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+            padding: 1.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+        .clay-button {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: calc(var(--radius) - 4px);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-light);
+            transition: all 0.2s ease-in-out;
+            color: var(--secondary-foreground);
+            font-size: 1rem;
+        }
+        .clay-button.primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            border: none;
+        }
+        .clay-button:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,0.07); }
+        .clay-button:active {
+            box-shadow: var(--shadow-dark);
+            transform: translateY(0);
+        }
+
+        /* Dashboard Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .metric-card h4 { 
+            margin: 0 0 0.5rem 0; 
+            color: var(--secondary);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .metric-card p { 
+            margin: 0; 
+            font-size: 2.25rem; 
+            font-weight: 700; 
+        }
+
+        /* Focused Workflow Styles */
+        .focused-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .framework-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .framework-card {
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            position: relative;
+            border: 2px solid transparent;
+            background-color: var(--card-background);
+            transition: all 0.2s ease-in-out;
+            box-shadow: var(--shadow-light);
+        }
+        .framework-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.07);
+        }
+        .framework-card.swot { border-color: #3B82F6; }
+        .framework-card.cost-benefit { border-color: #10B981; }
+        .framework-card.five-ws { border-color: #F59E0B; }
+        .framework-card.weighted { border-color: #8B5CF6; }
+        .framework-card h4 { margin: 0 0 0.5rem 0; font-size: 1.1rem; }
+        .framework-card p { font-size: 0.9rem; color: var(--secondary); margin: 0; }
+        .framework-card .close-btn {
+            position: absolute; top: 8px; right: 8px; width: 24px; height: 24px;
+            background-color: var(--destructive); color: white; border-radius: 50%;
+            border: none; cursor: pointer; font-weight: bold; line-height: 24px;
+            box-shadow: var(--shadow-light);
+            opacity: 0.7;
+        }
+        .framework-card .close-btn:hover { opacity: 1; }
+
+        .framework-alternatives {
+            margin-top: 2rem;
+            display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+        }
+
+        .recommendation-card {
+            text-align: left;
+            margin-top: 2rem;
+        }
+        .recommendation-card .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .recommendation-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0;
+        }
+        .recommendation-card .confidence {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .drill-down-tabs {
+            margin-top: 2rem;
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .drill-down-tabs button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .drill-down-tabs button.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="top-nav">
+            <div class="logo">FourSight</div>
+            <div class="user-profile">
+                <span>Jose</span>
+                <div class="avatar">J</div>
+            </div>
+        </header>
+        <div class="main-layout">
+            <nav class="sidebar">
+                <button class="sidebar-button active" data-page="dashboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <span>Dashboard</span>
+                </button>
+                <button class="sidebar-button" data-page="selection">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    <span>New Analysis</span>
+                </button>
+                 <button class="sidebar-button" data-page="recommendation">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                    <span>Recommendation</span>
+                </button>
+            </nav>
+
+            <main class="main-content">
+                
+                <!-- Dashboard Page -->
+                <div id="dashboard" class="page active">
+                    <div class="header">
+                        <h1>Welcome, Jose</h1>
+                        <p>Here's an overview of your decision-making activity.</p>
+                    </div>
+                     <button class="clay-button primary" style="margin-bottom: 1.5rem;">Start New Analysis</button>
+                    <div class="dashboard-grid">
+                        <div class="clay-card metric-card"><h4>Decisions Analyzed</h4><p>12</p></div>
+                        <div class="clay-card metric-card"><h4>Avg. Confidence</h4><p>High</p></div>
+                        <div class="clay-card metric-card"><h4>Top Framework</h4><p>SWOT</p></div>
+                        <div class="clay-card metric-card"><h4>Total Cost</h4><p>$4.52</p></div>
+                    </div>
+                </div>
+
+                <!-- Framework Selection Page -->
+                <div id="selection" class="page">
+                    <div class="focused-container">
+                        <div class="header">
+                            <h1>Assemble Your AI Strategy Team</h1>
+                            <p>I've analyzed your query and assembled a recommended team. Feel free to accept this team, or customize it by selecting the frameworks you prefer.</p>
+                        </div>
+                        <div class="framework-grid">
+                            <div class="framework-card swot"><h4>SWOT Analysis</h4><p>Strengths, Weaknesses, Opportunities, Threats</p><button class="close-btn">X</button></div>
+                            <div class="framework-card cost-benefit"><h4>Cost-Benefit</h4><p>Quantify pros and cons</p><button class="close-btn">X</button></div>
+                            <div class="framework-card five-ws"><h4>5 Ws & H</h4><p>Who, What, When, Where, Why, How</p><button class="close-btn">X</button></div>
+                            <div class="framework-card weighted"><h4>Weighted Matrix</h4><p>Score options against criteria</p><button class="close-btn">X</button></div>
+                        </div>
+                        <div class="framework-alternatives">
+                            <button class="clay-button">PESTEL</button>
+                            <button class="clay-button">Porter's Five</button>
+                            <button class="clay-button">VRIO</button>
+                            <button class="clay-button">McKinsey 7S</button>
+                            <button class="clay-button">Ansoff Matrix</button>
+                            <button class="clay-button">BCG Matrix</button>
+                        </div>
+                        <button class="clay-button primary" style="margin-top: 2rem; padding: 1rem 2rem;">Start Analysis</button>
+                    </div>
+                </div>
+
+                <!-- Recommendation Page -->
+                <div id="recommendation" class="page">
+                    <div class="focused-container">
+                        <div class="header">
+                            <h1>Your Synthesized Recommendation</h1>
+                            <p>Here is the final recommendation from your team of AI strategists.</p>
+                        </div>
+                        <div class="clay-card recommendation-card">
+                            <div class="recommendation-header">
+                                <h2>Recommendation: Proceed</h2>
+                                <p class="confidence">Confidence Score: High</p>
+                            </div>
+                            <p><strong>Executive Summary:</strong> Synthesized analysis indicates that entering the European market is a favorable decision with manageable risks. The market shows strong demand, and the regulatory environment is conducive to entry.</p>
+                            <hr style="border: none; border-top: 1px solid var(--border-color); margin: 1.5rem 0;">
+                            <h4>Key Supporting Points:</h4>
+                            <ul>
+                                <li>Large, untapped market with a 30% increase in organic traffic.</li>
+                                <li>Favorable regulatory environment reduces legal barriers.</li>
+                                <li>Competitor analysis shows a gap in the market that our product can fill.</li>
+                            </ul>
+                            <h4>Key Risks and Contradictions:</h4>
+                            <ul>
+                                <li>Initial marketing costs may be higher than projected.</li>
+                                <li>Cultural differences may require product localization.</li>
+                            </ul>
+                        </div>
+                        <div class="drill-down-tabs">
+                            <button class="active">SWOT</button>
+                            <button>Cost-Benefit</button>
+                            <button>5 Ws & H</button>
+                            <button>Weighted Matrix</button>
+                        </div>
+                        <div class="clay-card" style="text-align: left; margin-top: 1rem;">
+                            <h3 style="margin-top:0;">SWOT Analysis Details</h3>
+                            <p><strong>Strengths:</strong> Our product's unique features give us a strong competitive advantage...</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.sidebar-button');
+        const pages = document.querySelectorAll('.page');
+        const sidebar = document.querySelector('.sidebar');
+
+        function showPage(pageId) {
+            pages.forEach(page => page.classList.remove('active'));
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            buttons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.page === pageId);
+            });
+            
+            if (pageId === 'selection' || pageId === 'recommendation') {
+                sidebar.classList.add('collapsed');
+            } else {
+                sidebar.classList.remove('collapsed');
+            }
+        }
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const pageId = button.dataset.page;
+                if (pageId) {
+                    showPage(pageId);
+                }
+            });
+        });
+
+        // Initial page load
+        showPage('dashboard');
+    </script>
+
+</body>
+</html>

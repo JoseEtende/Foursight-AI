@@ -1,0 +1,21 @@
+# Constraints to tame pip's resolver and avoid resolution-too-deep backtracking
+# Use modern, widely compatible lower bounds; keep within requests' urllib3 <3 range
+
+# Core HTTP stack
+urllib3>=2.0.7,<3
+requests>=2.31.0
+idna>=3.4
+certifi>=2024.7.4
+charset-normalizer>=3.2.0
+
+# Google client stack
+google-api-core>=2.17.1
+google-auth>=2.23.4
+protobuf>=4.25.1
+grpcio>=1.60.0
+
+# Firestore is already specified in requirements; ensure modern baseline if transitive
+google-cloud-firestore>=2.16.0
+
+# Generative AI client will pull google-api-core; constraints above keep it modern
+google-generativeai>=0.5.2
